@@ -1,0 +1,362 @@
+{
+  "name": "Telegram Chatbot Assignment",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -464,
+        -32
+      ],
+      "id": "c1780883-055d-4b11-a82e-d065abf128a0",
+      "name": "Telegram Trigger",
+      "webhookId": "5c6a6741-bed0-43c5-9136-f4fd792f765e",
+      "credentials": {
+        "telegramApi": {
+          "id": "gslWUl9q8GnaK1ot",
+          "name": "Telegram account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "/start",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    },
+                    "id": "479978c3-7048-4789-89c3-6c9cd91f16cf"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "9f672a8a-4a2a-4d19-b591-d6d479590df8",
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "/help",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "7fb0e00e-57b5-42ba-b714-6098a0900580",
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "/echo",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "7f23b595-b88b-41f2-b6c4-1cc970fd64f6",
+                    "leftValue": "",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        -272,
+        -48
+      ],
+      "id": "86575866-9a2e-4418-9efd-c723e59fd400",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.message.chat.id }}",
+        "text": "Welcome to the bot! Here are your instructions on how to use it:\n\nUse /start to see this welcome message.\nUse /help to see a list of available commands.\nUse /echo <your message> to make the bot repeat your message back to you.",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        48,
+        -224
+      ],
+      "id": "d726be99-4b87-41b8-8a06-97715888a7ba",
+      "name": "Send a text message",
+      "webhookId": "3a962e53-1207-4be5-822d-66fd3107b5be",
+      "credentials": {
+        "telegramApi": {
+          "id": "gslWUl9q8GnaK1ot",
+          "name": "Telegram account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.message.chat.id }}",
+        "text": "Here is a list of available commands:\n\n🤖 /start - Sends a welcome message with instructions.\n❓ /help - Sends a list of available commands.\n🗣️ /echo <message> - Echoes back your message.",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        16,
+        -32
+      ],
+      "id": "6c865246-ab28-41bb-9067-15bac819ccbe",
+      "name": "Send a text message1",
+      "webhookId": "d6a3d13a-0589-4849-a0d7-b49f8603c6a3",
+      "credentials": {
+        "telegramApi": {
+          "id": "gslWUl9q8GnaK1ot",
+          "name": "Telegram account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.message.chat.id }}",
+        "text": "={{ $json.message.text.replace('/echo ', '') }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        32,
+        192
+      ],
+      "id": "7f76863d-e78b-4f04-bb03-dd9415f1e9e4",
+      "name": "Send a text message2",
+      "webhookId": "4a4c9089-0d42-4eea-852b-bc424e5c5f60",
+      "credentials": {
+        "telegramApi": {
+          "id": "gslWUl9q8GnaK1ot",
+          "name": "Telegram account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.message.text }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        320,
+        128
+      ],
+      "id": "9d64e360-2e74-459f-a2ec-91af7a5a09bf",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        192,
+        336
+      ],
+      "id": "3d53e4b5-1dfb-401a-803f-8065d9436311",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "B0GYFNdLzUckekjq",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "= {{ $json.message.from.id }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.4,
+      "position": [
+        336,
+        336
+      ],
+      "id": "ad8ede5c-9ed1-46d6-a1a4-3424037579cd",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $node[\"Telegram Trigger\"].json[\"message\"][\"chat\"][\"id\"] }}",
+        "text": "={{ $json.output }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        672,
+        128
+      ],
+      "id": "3686b7ee-de83-4257-8272-3d42683837b9",
+      "name": "Send a text message3",
+      "webhookId": "d6fad85b-3043-4026-94f1-19d4595de1df",
+      "credentials": {
+        "telegramApi": {
+          "id": "gslWUl9q8GnaK1ot",
+          "name": "Telegram account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a text message1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a text message2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Send a text message3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "0942fdcf-511e-4053-97cb-27fa217a6286",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "55d3b59970d7ae68c6707321e79be564fc358f8143d9c641a615d0ceb280c82e"
+  },
+  "nodeGroups": [],
+  "id": "1aWPHdhuGYkcaOnS",
+  "tags": []
+}
