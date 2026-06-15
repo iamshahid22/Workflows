@@ -2,6 +2,11 @@
 
 # Advanced AI Telegram Chatbot Implementation Report
 
+## 🚀 Live Demo
+
+You can view the interactive, live production workflow layout here:
+👉 **[View Live n8n Automation Workflow](https://shahiddin-shaik-22.app.n8n.cloud/workflow/1aWPHdhuGYkcaOnS)**
+
 ## Design Decisions
 - **Hybrid Command & Intelligence Router:** Implemented an n8n Switch router node that parses incoming message packets sequentially. Standard strings matching static execution criteria (`/start`, `/help`, `/echo`) are processed instantly via custom isolated text nodes to save performance overhead.
 - **Cognitive Fallback Engine:** Configured an asynchronous `Indicator Default` fallback path. Unmapped queries pass directly into a dedicated Advanced AI Agent node utilizing the Google Gemini chat model structure for conversational intelligence.
